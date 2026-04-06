@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Lịch Sử & Nguồn Gốc – Lễ Hội Lim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cr:#8B1A1A;--go:#C9923A;--gl:#E8C06A;--iv:#FAF3E8;--dk:#1C1108;--ink:#2C1F0E}
+html{scroll-behavior:smooth}
+body{background:var(--iv);color:var(--ink);font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+#pt{position:fixed;inset:0;z-index:9999;pointer-events:none;background:var(--dk);
+  clip-path:inset(100% 0 0 0);transition:clip-path .55s cubic-bezier(.77,0,.18,1)}
+#pt.out{pointer-events:all;clip-path:inset(0% 0 0 0)}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;
+  justify-content:space-between;padding:1.1rem 4rem;
+  background:rgba(28,17,8,.9);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,146,58,.2)}
+.nb{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+  letter-spacing:.14em;color:var(--gl);text-transform:uppercase;text-decoration:none}
+.nl{display:flex;gap:2rem;list-style:none}
+.nl a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(250,243,232,.55);text-decoration:none;transition:color .3s}
+.nl a:hover,.nl a.cur{color:var(--gl)}
+.rv{opacity:0;transform:translateY(32px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+.wrap{max-width:1080px;margin:0 auto;padding:0 3rem}
+
+/* HERO BANNER */
+.page-hero{
+  min-height:52vh;background:var(--dk);
+  display:flex;align-items:flex-end;padding-bottom:4rem;
+  padding-top:100px;position:relative;overflow:hidden;
+}
+.page-hero::before{
+  content:'LỊCH SỬ';position:absolute;
+  font-family:'Playfair Display',serif;font-size:clamp(5rem,18vw,16rem);
+  font-weight:900;color:rgba(201,146,58,.04);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  white-space:nowrap;pointer-events:none;letter-spacing:.05em;
+}
+.hero-line-dec{position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--go),var(--gl),var(--go),transparent)}
+.page-hero .wrap{width:100%}
+.breadcrumb{display:flex;align-items:center;gap:.6rem;
+  font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(250,243,232,.35);margin-bottom:1.2rem}
+.breadcrumb a{color:rgba(250,243,232,.35);text-decoration:none;transition:color .3s}
+.breadcrumb a:hover{color:var(--go)}
+.breadcrumb span{color:var(--go)}
+.page-title{font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--iv);line-height:1}
+.page-title em{color:var(--go);font-style:italic}
+.page-sub{font-size:1.1rem;font-weight:300;color:rgba(250,243,232,.5);
+  margin-top:.8rem;max-width:520px}
+
+/* CONTENT */
+.page-body{padding:5rem 0 6rem}
+.two-col{display:grid;grid-template-columns:2fr 1fr;gap:4rem;align-items:start}
+
+/* TIMELINE */
+.timeline{position:relative;margin:3rem 0}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;
+  width:1px;background:linear-gradient(to bottom,transparent,var(--go),var(--go),transparent)}
+.tl-item{padding-left:2.5rem;margin-bottom:3rem;position:relative}
+.tl-item::before{content:'';position:absolute;left:-4px;top:.45rem;
+  width:9px;height:9px;border-radius:50%;background:var(--go);border:2px solid var(--dk)}
+.tl-year{font-family:'Playfair Display',serif;font-size:1.6rem;
+  color:var(--go);font-weight:700;line-height:1;margin-bottom:.4rem}
+.tl-title{font-family:'Playfair Display',serif;font-size:1.15rem;
+  color:var(--cr);margin-bottom:.5rem;font-weight:700}
+.tl-text{font-size:.97rem;line-height:1.9;color:rgba(44,31,14,.72);font-weight:300}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:110px}
+.s-box{background:var(--dk);border-top:3px solid var(--go);padding:2rem;margin-bottom:1.2rem}
+.s-box h3{font-family:'Playfair Display',serif;font-size:1rem;
+  color:var(--gl);margin-bottom:1.2rem;font-weight:700}
+.s-row{display:flex;justify-content:space-between;align-items:center;
+  padding:.6rem 0;border-bottom:1px solid rgba(201,146,58,.1);font-size:.85rem}
+.s-row:last-child{border-bottom:none}
+.s-row .lbl{color:rgba(250,243,232,.4)}
+.s-row .val{color:var(--iv);font-weight:600}
+
+/* DEEP DIVE BLOCKS */
+.content-section{margin-bottom:4rem}
+.cs-title{font-family:'Playfair Display',serif;font-size:1.8rem;
+  color:var(--cr);margin-bottom:1rem;font-weight:800}
+.cs-text{font-size:1.05rem;line-height:1.95;color:rgba(44,31,14,.75);
+  font-weight:300;margin-bottom:1.2rem}
+.cs-text strong{color:var(--cr);font-weight:600}
+.highlight-box{
+  background:var(--dk);border-left:3px solid var(--go);
+  padding:1.8rem 2rem;margin:2rem 0;
+}
+.highlight-box p{font-family:'Playfair Display',serif;font-size:1.2rem;
+  font-style:italic;color:var(--iv);line-height:1.7}
+.highlight-box cite{display:block;margin-top:.8rem;font-size:.7rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--go);font-style:normal}
+
+/* STAT BAND */
+.stat-band{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:rgba(201,146,58,.15);margin:3rem 0}
+.sb{background:var(--dk);padding:2rem 1.5rem;text-align:center}
+.sb .n{font-family:'Playfair Display',serif;font-size:2.8rem;
+  color:var(--gl);font-weight:700;line-height:1}
+.sb .l{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(250,243,232,.4);margin-top:.4rem;display:block}
+
+/* NAV BETWEEN PAGES */
+.page-nav{display:flex;justify-content:space-between;align-items:center;
+  padding:2.5rem 0;border-top:1px solid rgba(201,146,58,.2);margin-top:4rem}
+.pn-link{display:flex;flex-direction:column;text-decoration:none;
+  transition:opacity .3s}
+.pn-link:hover{opacity:.75}
+.pn-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(201,146,58,.6);margin-bottom:.3rem}
+.pn-title{font-family:'Playfair Display',serif;font-size:1.1rem;
+  color:var(--ink);font-weight:700}
+.pn-link.right{text-align:right}
+
+footer{background:#080401;padding:3rem;text-align:center;
+  border-top:1px solid rgba(201,146,58,.15)}
+.fl{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--go);
+  font-weight:700;letter-spacing:.12em;margin-bottom:.4rem}
+.fc{font-size:.68rem;letter-spacing:.1em;color:rgba(250,243,232,.18);text-transform:uppercase}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}.nl{display:none}
+  .two-col{grid-template-columns:1fr}.sidebar{position:static}
+  .stat-band{grid-template-columns:1fr 1fr}.wrap{padding:0 1.4rem}
+}
+</style>
+</head>
+<body>
+<div id="pt"></div>
+
+<nav>
+  <a href="index.html" class="nb" data-link>← Lễ Hội Lim</a>
+  <ul class="nl">
+    <li><a href="lich-su.html" class="cur" data-link>Lịch Sử</a></li>
+    <li><a href="noi-dung.html" data-link>Nội Dung Hội</a></li>
+    <li><a href="du-lich.html" data-link>Du Lịch</a></li>
+    <li><a href="am-thuc.html" data-link>Ẩm Thực</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb rv">
+      <a href="index.html" data-link>Trang Chủ</a>
+      <span>›</span><span>Lịch Sử & Nguồn Gốc</span>
+    </div>
+    <h1 class="page-title rv d1">Lịch Sử &<br><em>Nguồn Gốc</em></h1>
+    <p class="page-sub rv d2">Hành trình từ buổi hát thờ đầu tiên đến di sản văn hóa nhân loại</p>
+  </div>
+  <div class="hero-line-dec"></div>
+</div>
+
+<div class="page-body">
+  <div class="wrap">
+    <div class="stat-band rv">
+      <div class="sb"><div class="n">200+</div><span class="l">Năm Lịch Sử</span></div>
+      <div class="sb"><div class="n">49</div><span class="l">Làng Quan Họ Gốc</span></div>
+      <div class="sb"><div class="n">2009</div><span class="l">UNESCO Công Nhận</span></div>
+      <div class="sb"><div class="n">13</div><span class="l">Tháng Giêng ÂL</span></div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <!-- NGUỒN GỐC -->
+        <div class="content-section rv">
+          <h2 class="cs-title">Nguồn Gốc Lễ Hội</h2>
+          <p class="cs-text">Hội Lim gắn liền với vùng đất <strong>Tiên Du – Bắc Ninh</strong>, một trong những cái nôi của nền văn minh lúa nước và văn hóa dân gian người Việt. Tên gọi "Lim" xuất phát từ ngọn <strong>núi Lim</strong> — trung tâm tâm linh và văn hóa của cả vùng Kinh Bắc xưa.</p>
+          <p class="cs-text">Theo các nguồn sử liệu và truyền thuyết dân gian, lễ hội bắt đầu từ những buổi <strong>hát thờ tại đình làng</strong> để tưởng nhớ công đức của ông <strong>Hiếu Trung Hầu</strong> — vị quan triều Lê có công lớn trong việc sưu tầm, truyền dạy và phát triển dân ca Quan họ trong vùng. Từ những buổi lễ trang nghiêm ban đầu, dần dần người dân thêm vào phần "hội" với hát đối đáp và vui chơi, hình thành nên Hội Lim như ngày nay.</p>
+          <div class="highlight-box">
+            <p>"Quan họ không đơn thuần là dân ca — đó là cả một triết lý sống, một nghệ thuật ứng xử tinh tế của người Kinh Bắc được chắt lọc qua hàng trăm năm."</p>
+            <cite>— GS. Tô Ngọc Thanh, nhà nghiên cứu âm nhạc dân gian</cite>
+          </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="content-section rv d1">
+          <h2 class="cs-title">Dòng Chảy Lịch Sử</h2>
+          <div class="timeline">
+            <div class="tl-item rv">
+              <div class="tl-year">TK XVII–XVIII</div>
+              <div class="tl-title">Hình Thành Buổi Hát Thờ</div>
+              <p class="tl-text">Những buổi ca hát đầu tiên mang tính nghi lễ tại đình làng Lim, thờ phụng các vị thần và ông Hiếu Trung Hầu. Hình thức hát đối đáp nam nữ (liền anh – liền chị) bắt đầu định hình rõ nét trong văn hóa vùng Kinh Bắc.</p>
+            </div>
+            <div class="tl-item rv d1">
+              <div class="tl-year">TK XIX</div>
+              <div class="tl-title">Phát Triển Thành Lễ Hội Lớn</div>
+              <p class="tl-text">Hội Lim mở rộng quy mô, thu hút người dân từ khắp các làng Quan họ gốc thuộc vùng Bắc Ninh – Bắc Giang. Phần hội với các trò chơi dân gian được bổ sung, tạo nên cấu trúc lễ hội hoàn chỉnh gồm phần lễ trang nghiêm và phần hội sôi động.</p>
+            </div>
+            <div class="tl-item rv d2">
+              <div class="tl-year">1945–1975</div>
+              <div class="tl-title">Giai Đoạn Gián Đoạn</div>
+              <p class="tl-text">Do chiến tranh và biến động lịch sử, Hội Lim bị gián đoạn nhiều năm. Tuy nhiên các nghệ nhân cao tuổi vẫn âm thầm bảo tồn các làn điệu Quan họ, truyền dạy cho thế hệ sau trong không gian gia đình và làng xóm.</p>
+            </div>
+            <div class="tl-item rv d3">
+              <div class="tl-year">1989</div>
+              <div class="tl-title">Phục Hồi & Chính Thức Hoá</div>
+              <p class="tl-text">Lễ hội được khôi phục và tổ chức trở lại với quy mô lớn hơn. Nhà nước công nhận Hội Lim là lễ hội truyền thống cấp tỉnh, đưa vào danh sách di sản văn hóa phi vật thể quốc gia cần bảo tồn và phát huy.</p>
+            </div>
+            <div class="tl-item rv d2">
+              <div class="tl-year">2009</div>
+              <div class="tl-title">UNESCO Công Nhận Di Sản Nhân Loại</div>
+              <p class="tl-text">Ngày 30/9/2009, tại kỳ họp lần thứ 4 của Ủy ban Liên Chính phủ về Bảo vệ Di sản văn hóa phi vật thể tổ chức ở Abu Dhabi (UAE), UNESCO chính thức công nhận <strong>Dân ca Quan họ Bắc Ninh</strong> là Di sản văn hóa phi vật thể đại diện của nhân loại — mốc son lịch sử của văn hóa Việt Nam.</p>
+            </div>
+            <div class="tl-item rv d3">
+              <div class="tl-year">Ngày nay</div>
+              <div class="tl-title">Di Sản Sống Động</div>
+              <p class="tl-text">Hội Lim hiện thu hút hàng vạn du khách trong và ngoài nước mỗi năm. Nhiều chương trình bảo tồn, truyền dạy Quan họ được triển khai tại trường học và cộng đồng, đảm bảo dòng chảy văn hóa ngàn năm không bị đứt đoạn.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DÂN CA QUAN HỌ -->
+        <div class="content-section rv">
+          <h2 class="cs-title">Dân Ca Quan Họ — Linh Hồn Của Hội</h2>
+          <p class="cs-text">Quan họ là thể loại dân ca đặc trưng nhất của vùng Kinh Bắc, được hình thành và phát triển chủ yếu tại <strong>49 làng Quan họ gốc</strong> thuộc hai tỉnh Bắc Ninh và Bắc Giang ngày nay.</p>
+          <p class="cs-text">Đặc điểm nổi bật của Quan họ là hát <strong>đối đáp</strong> (giao duyên) giữa bọn liền anh và bọn liền chị, thể hiện tình cảm nam nữ qua những câu hát ý tứ, tinh tế mà không lộ liễu. Nghệ thuật Quan họ đòi hỏi người hát phải thuộc hàng trăm bài, ứng đáp linh hoạt theo từng tình huống.</p>
+          <p class="cs-text">Trang phục truyền thống của người hát Quan họ cũng là một nét văn hóa độc đáo: <strong>áo tứ thân, nón quai thao</strong> đối với liền chị; <strong>áo dài the, khăn xếp</strong> đối với liền anh — tất cả tạo nên một bức tranh văn hóa sống động và đầy màu sắc.</p>
+        </div>
+
+        <div class="page-nav rv">
+          <a href="index.html" class="pn-link" data-link>
+            <span class="pn-label">← Quay về</span>
+            <span class="pn-title">Trang Chủ</span>
+          </a>
+          <a href="noi-dung.html" class="pn-link right" data-link>
+            <span class="pn-label">Tiếp theo →</span>
+            <span class="pn-title">Nội Dung Lễ Hội</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="s-box rv">
+          <h3>📋 Thông Tin Chính</h3>
+          <div class="s-row"><span class="lbl">Tên gọi</span><span class="val">Hội Lim</span></div>
+          <div class="s-row"><span class="lbl">Địa điểm</span><span class="val">Tiên Du, Bắc Ninh</span></div>
+          <div class="s-row"><span class="lbl">Ngày chính hội</span><span class="val">13/1 âm lịch</span></div>
+          <div class="s-row"><span class="lbl">Quy mô</span><span class="val">Cấp quốc gia</span></div>
+          <div class="s-row"><span class="lbl">UNESCO</span><span class="val">2009</span></div>
+          <div class="s-row"><span class="lbl">Vào cổng</span><span class="val">Miễn phí</span></div>
+        </div>
+        <div class="s-box rv d1">
+          <h3>🎵 Về Quan Họ</h3>
+          <div class="s-row"><span class="lbl">Làng gốc</span><span class="val">49 làng</span></div>
+          <div class="s-row"><span class="lbl">Tỉnh</span><span class="val">Bắc Ninh & Bắc Giang</span></div>
+          <div class="s-row"><span class="lbl">Hình thức</span><span class="val">Hát đối đáp</span></div>
+          <div class="s-row"><span class="lbl">Trang phục</span><span class="val">Áo tứ thân, nón quai thao</span></div>
+        </div>
+        <div class="s-box rv d2" style="background:var(--cr);border-top-color:var(--gl)">
+          <h3 style="color:var(--gl)">🔗 Khám Phá Thêm</h3>
+          <p style="font-size:.88rem;line-height:1.75;color:rgba(250,243,232,.65);margin-bottom:1rem">Tìm hiểu về các hoạt động trong lễ hội, kế hoạch du lịch và ẩm thực Bắc Ninh.</p>
+          <a href="noi-dung.html" data-link style="display:block;color:var(--gl);font-size:.75rem;
+            letter-spacing:.15em;text-transform:uppercase;text-decoration:none;
+            padding:.5rem 0;border-bottom:1px solid rgba(232,192,106,.2)">→ Nội Dung Lễ Hội</a>
+          <a href="du-lich.html" data-link style="display:block;color:var(--gl);font-size:.75rem;
+            letter-spacing:.15em;text-transform:uppercase;text-decoration:none;
+            padding:.5rem 0;border-bottom:1px solid rgba(232,192,106,.2)">→ Hướng Dẫn Du Lịch</a>
+          <a href="am-thuc.html" data-link style="display:block;color:var(--gl);font-size:.75rem;
+            letter-spacing:.15em;text-transform:uppercase;text-decoration:none;padding:.5rem 0">→ Ẩm Thực Bắc Ninh</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">❖ Hội Lim ❖</div>
+  <p class="fc">Di sản văn hóa phi vật thể UNESCO 2009 · Bắc Ninh, Việt Nam</p>
+</footer>
+
+<script>
+const pt=document.getElementById('pt');
+document.querySelectorAll('[data-link]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const h=a.getAttribute('href');if(!h||h.startsWith('#'))return;
+    e.preventDefault();pt.classList.add('out');
+    setTimeout(()=>location.href=h,520);
+  });
+});
+window.addEventListener('load',()=>{
+  pt.style.transition='none';pt.style.clipPath='inset(0% 0 0 0)';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    pt.style.transition='clip-path .55s cubic-bezier(.77,0,.18,1)';
+    pt.style.clipPath='inset(100% 0 0 0)';
+  }));
+});
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}
+}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

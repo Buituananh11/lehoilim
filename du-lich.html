@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Hướng Dẫn Du Lịch – Lễ Hội Lim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cr:#8B1A1A;--go:#C9923A;--gl:#E8C06A;--iv:#FAF3E8;--dk:#1C1108;--ink:#2C1F0E}
+html{scroll-behavior:smooth}
+body{background:#f0e6d0;color:var(--ink);font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+#pt{position:fixed;inset:0;z-index:9999;pointer-events:none;background:var(--dk);
+  clip-path:inset(100% 0 0 0);transition:clip-path .55s cubic-bezier(.77,0,.18,1)}
+#pt.out{pointer-events:all;clip-path:inset(0% 0 0 0)}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;
+  justify-content:space-between;padding:1.1rem 4rem;
+  background:rgba(28,17,8,.9);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,146,58,.2)}
+.nb{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+  letter-spacing:.14em;color:var(--gl);text-transform:uppercase;text-decoration:none}
+.nl{display:flex;gap:2rem;list-style:none}
+.nl a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(250,243,232,.5);text-decoration:none;transition:color .3s}
+.nl a:hover,.nl a.cur{color:var(--gl)}
+.rv{opacity:0;transform:translateY(32px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+.wrap{max-width:1080px;margin:0 auto;padding:0 3rem}
+
+/* HERO */
+.page-hero{min-height:50vh;background:var(--dk);display:flex;align-items:flex-end;
+  padding-bottom:4rem;padding-top:100px;position:relative;overflow:hidden}
+.page-hero::before{content:'DU LỊCH';position:absolute;
+  font-family:'Playfair Display',serif;font-size:clamp(4rem,14vw,13rem);
+  font-weight:900;color:rgba(201,146,58,.04);
+  top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none}
+.hero-line-dec{position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--go),var(--gl),var(--go),transparent)}
+.breadcrumb{display:flex;align-items:center;gap:.6rem;font-size:.65rem;
+  letter-spacing:.25em;text-transform:uppercase;color:rgba(250,243,232,.3);margin-bottom:1.2rem}
+.breadcrumb a{color:rgba(250,243,232,.3);text-decoration:none;transition:color .3s}
+.breadcrumb a:hover{color:var(--go)}.breadcrumb span{color:var(--go)}
+.page-title{font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--iv);line-height:1}
+.page-title em{color:var(--go);font-style:italic}
+.page-sub{font-size:1.1rem;font-weight:300;color:rgba(250,243,232,.45);
+  margin-top:.8rem;max-width:520px}
+
+/* BODY */
+.page-body{padding:5rem 0 6rem}
+.two-col{display:grid;grid-template-columns:1.3fr 1fr;gap:4rem;align-items:start}
+.body-text{font-size:1.05rem;line-height:1.95;color:rgba(44,31,14,.72);
+  font-weight:300;margin-bottom:1.2rem}
+.body-text strong{color:var(--cr);font-weight:600}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.7rem;
+  color:var(--cr);margin-bottom:1rem;font-weight:800}
+.sec-label{font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--go);display:block;margin-bottom:.5rem}
+
+/* TRANSPORT CARDS */
+.transport-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:rgba(201,146,58,.2);margin:2.5rem 0}
+.tc{background:var(--iv);padding:2rem;transition:background .3s}
+.tc:hover{background:#e8dcc4}
+.tc-icon{font-size:1.5rem;margin-bottom:.8rem}
+.tc-name{font-family:'Playfair Display',serif;font-size:1.1rem;
+  color:var(--cr);font-weight:700;margin-bottom:.5rem}
+.tc-detail{font-size:.9rem;line-height:1.75;color:rgba(44,31,14,.6)}
+.tc-detail strong{color:var(--ink)}
+
+/* TIPS ACCORDION */
+.tips-section{margin:3rem 0}
+.tip-accordion{border:1px solid rgba(201,146,58,.2);margin-bottom:.5rem;overflow:hidden}
+.tip-header{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.8rem;
+  cursor:pointer;background:var(--iv);transition:background .3s;
+  border-left:3px solid transparent;transition:all .3s}
+.tip-header:hover,.tip-header.open{background:#ecdec6;border-left-color:var(--go)}
+.tip-num{font-family:'Playfair Display',serif;font-size:1.4rem;
+  color:rgba(201,146,58,.4);font-weight:900;flex-shrink:0}
+.tip-ttl{font-family:'Playfair Display',serif;font-size:1.1rem;
+  color:var(--cr);font-weight:700;flex:1}
+.tip-chev{font-size:.8rem;color:var(--go);transition:transform .3s}
+.tip-header.open .tip-chev{transform:rotate(180deg)}
+.tip-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.tip-body.open{max-height:400px}
+.tip-body-inner{padding:0 1.8rem 1.8rem 4.6rem;
+  font-size:.97rem;line-height:1.9;color:rgba(44,31,14,.7);font-weight:300}
+
+/* NEARBY PLACES */
+.places-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.place-card{background:var(--dk);padding:1.8rem;border-top:2px solid var(--go)}
+.place-icon{font-size:1.3rem;margin-bottom:.7rem}
+.place-name{font-family:'Playfair Display',serif;font-size:1rem;
+  color:var(--gl);font-weight:700;margin-bottom:.4rem}
+.place-dist{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--go);margin-bottom:.6rem;display:block}
+.place-desc{font-size:.85rem;line-height:1.75;color:rgba(250,243,232,.5)}
+
+/* STICKY ASIDE */
+.aside{position:sticky;top:110px}
+.aside-box{background:var(--dk);border-top:3px solid var(--go);padding:2rem;margin-bottom:1rem}
+.aside-box h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gl);margin-bottom:1.2rem}
+.ar{display:flex;justify-content:space-between;padding:.6rem 0;
+  border-bottom:1px solid rgba(201,146,58,.1);font-size:.85rem}
+.ar:last-child{border-bottom:none}
+.ar .l{color:rgba(250,243,232,.4)}.ar .v{color:var(--iv);font-weight:600;text-align:right;max-width:58%}
+.check-list{list-style:none}
+.check-list li{display:flex;align-items:flex-start;gap:.7rem;padding:.5rem 0;
+  font-size:.88rem;color:rgba(250,243,232,.55);line-height:1.6}
+.check-list li::before{content:'✓';color:var(--go);flex-shrink:0;margin-top:.05rem}
+.cta-box{background:linear-gradient(135deg,var(--cr),#5e1010);padding:2rem;text-align:center}
+.cta-box p{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(250,243,232,.55);margin-bottom:.5rem}
+.cta-box h4{font-family:'Playfair Display',serif;font-size:1.2rem;
+  color:var(--iv);font-style:italic;line-height:1.5}
+.cta-box .tag{display:inline-block;margin-top:.8rem;background:var(--go);
+  color:var(--dk);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:.4rem 1.2rem;font-weight:700}
+
+.page-nav{display:flex;justify-content:space-between;align-items:center;
+  padding:2.5rem 0;border-top:1px solid rgba(201,146,58,.2);margin-top:4rem}
+.pn-link{display:flex;flex-direction:column;text-decoration:none;transition:opacity .3s}
+.pn-link:hover{opacity:.75}
+.pn-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(201,146,58,.6);margin-bottom:.3rem}
+.pn-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--ink);font-weight:700}
+.pn-link.right{text-align:right}
+footer{background:#080401;padding:3rem;text-align:center;border-top:1px solid rgba(201,146,58,.15)}
+.fl{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--go);
+  font-weight:700;letter-spacing:.12em;margin-bottom:.4rem}
+.fc{font-size:.68rem;letter-spacing:.1em;color:rgba(250,243,232,.18);text-transform:uppercase}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}.nl{display:none}
+  .two-col{grid-template-columns:1fr}.aside{position:static}
+  .transport-grid,.places-grid{grid-template-columns:1fr}
+  .wrap{padding:0 1.4rem}
+}
+</style>
+</head>
+<body>
+<div id="pt"></div>
+
+<nav>
+  <a href="index.html" class="nb" data-link>← Lễ Hội Lim</a>
+  <ul class="nl">
+    <li><a href="lich-su.html" data-link>Lịch Sử</a></li>
+    <li><a href="noi-dung.html" data-link>Nội Dung Hội</a></li>
+    <li><a href="du-lich.html" class="cur" data-link>Du Lịch</a></li>
+    <li><a href="am-thuc.html" data-link>Ẩm Thực</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb rv"><a href="index.html" data-link>Trang Chủ</a><span>›</span><span>Du Lịch</span></div>
+    <h1 class="page-title rv d1">Hướng Dẫn<br><em>Du Lịch</em></h1>
+    <p class="page-sub rv d2">Lịch trình, phương tiện, lưu trú và mọi thứ bạn cần cho chuyến đi</p>
+  </div>
+  <div class="hero-line-dec"></div>
+</div>
+
+<div class="page-body">
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <!-- DI CHUYỂN -->
+        <div class="rv">
+          <span class="sec-label">Di Chuyển</span>
+          <h2 class="sec-title">Từ Hà Nội Đến Bắc Ninh</h2>
+          <p class="body-text">Bắc Ninh chỉ cách Hà Nội khoảng <strong>30 km</strong> theo Quốc lộ 1A, là một trong những tỉnh dễ tiếp cận nhất từ thủ đô. Du khách có nhiều lựa chọn phương tiện tùy ngân sách và sở thích.</p>
+          <div class="transport-grid rv d1">
+            <div class="tc"><div class="tc-icon">🚌</div><div class="tc-name">Xe Buýt</div><p class="tc-detail"><strong>Tuyến 203</strong> xuất phát từ bến Mỹ Đình, đến Bắc Ninh mất khoảng <strong>60–90 phút</strong>. Giá vé khoảng 25.000–30.000đ. Tần suất: mỗi 20–30 phút.</p></div>
+            <div class="tc"><div class="tc-icon">🚂</div><div class="tc-name">Tàu Lửa</div><p class="tc-detail">Ga Hà Nội → Ga Bắc Ninh, khoảng <strong>40–50 phút</strong>. Có nhiều chuyến trong ngày. Tiện nghi, đúng giờ. Từ ga Bắc Ninh đi xe ôm/taxi ~10 phút đến Lim.</p></div>
+            <div class="tc"><div class="tc-icon">🛺</div><div class="tc-name">Xe Máy / Ôtô</div><p class="tc-detail">Theo <strong>QL1A</strong> hoặc đường cao tốc Hà Nội–Bắc Giang, khoảng <strong>45–60 phút</strong>. Lưu ý: ngày hội rất đông, nên đến sớm và gửi xe xa trung tâm.</p></div>
+            <div class="tc"><div class="tc-icon">🚖</div><div class="tc-name">Taxi / Grab</div><p class="tc-detail">Grab Car hoặc taxi từ Hà Nội khoảng <strong>200.000–350.000đ</strong> một chiều. Tiện nhất cho nhóm 3–4 người. Nên đặt trước ngày hội.</p></div>
+          </div>
+        </div>
+
+        <!-- LƯU Ý -->
+        <div class="rv d1" style="margin-top:3rem">
+          <span class="sec-label">Kinh Nghiệm</span>
+          <h2 class="sec-title">Lưu Ý Khi Đi Hội</h2>
+          <div class="tips-section">
+            <div class="tip-accordion">
+              <div class="tip-header open" onclick="toggle(this)">
+                <div class="tip-num">01</div>
+                <span class="tip-ttl">Trang Phục & Hành Lý</span>
+                <span class="tip-chev">▼</span>
+              </div>
+              <div class="tip-body open">
+                <div class="tip-body-inner">Mặc trang phục lịch sự, kín đáo — ưu tiên áo dài hoặc trang phục truyền thống để hòa vào không khí lễ hội và chụp ảnh đẹp hơn. Mang giày dép thoải mái vì sẽ đi bộ nhiều. Đem theo áo khoác nhẹ vì thời tiết tháng Giêng se lạnh. Hạn chế đồ đạc cồng kềnh vì rất đông người.</div>
+              </div>
+            </div>
+            <div class="tip-accordion">
+              <div class="tip-header" onclick="toggle(this)">
+                <div class="tip-num">02</div>
+                <span class="tip-ttl">Thời Điểm Lý Tưởng Nhất</span>
+                <span class="tip-chev">▼</span>
+              </div>
+              <div class="tip-body">
+                <div class="tip-body-inner">Đến trước 7 giờ sáng ngày 13 để có vị trí tốt xem lễ rước kiệu. Hát Quan họ trên thuyền diễn ra từ 8–11 giờ sáng — đây là thời điểm đẹp nhất. Nếu không thể đến sớm, buổi tối cũng rất đặc sắc với không gian đèn lồng và hát Quan họ đêm từ 19–21 giờ.</div>
+              </div>
+            </div>
+            <div class="tip-accordion">
+              <div class="tip-header" onclick="toggle(this)">
+                <div class="tip-num">03</div>
+                <span class="tip-ttl">An Toàn & Giữ Đồ Vật</span>
+                <span class="tip-chev">▼</span>
+              </div>
+              <div class="tip-body">
+                <div class="tip-body-inner">Hội Lim rất đông người — hàng chục nghìn du khách cùng một lúc. Giữ chặt ví, điện thoại và không để túi xách sau lưng. Đi theo nhóm và thống nhất điểm hẹn nếu lạc nhau. Trẻ nhỏ nên được giám sát chặt chẽ. Có lực lượng công an và bảo vệ trên toàn khu vực hội.</div>
+              </div>
+            </div>
+            <div class="tip-accordion">
+              <div class="tip-header" onclick="toggle(this)">
+                <div class="tip-num">04</div>
+                <span class="tip-ttl">Ăn Uống & Chi Phí</span>
+                <span class="tip-chev">▼</span>
+              </div>
+              <div class="tip-body">
+                <div class="tip-body-inner">Vào cổng hoàn toàn miễn phí. Chi phí chủ yếu là ăn uống (50.000–150.000đ/người), đồ lưu niệm và di chuyển. Giá thức ăn tại hội cao hơn bình thường, nên ăn trước khi vào hoặc mang đồ ăn nhẹ theo. Có nhiều quán ăn ngon gần khu vực hội với giá hợp lý hơn bên trong.</div>
+              </div>
+            </div>
+            <div class="tip-accordion">
+              <div class="tip-header" onclick="toggle(this)">
+                <div class="tip-num">05</div>
+                <span class="tip-ttl">Điểm Tham Quan Kết Hợp</span>
+                <span class="tip-chev">▼</span>
+              </div>
+              <div class="tip-body">
+                <div class="tip-body-inner">Bắc Ninh có nhiều điểm tham quan lịch sử gần Lim. Nếu có thời gian, nên kết hợp thăm Chùa Dâu (10km), Đền Đô (8km), Làng tranh Đông Hồ (25km). Tất cả đều có thể thăm trong cùng một ngày nếu xuất phát sớm.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ĐIỂM THAM QUAN -->
+        <div class="rv" style="margin-top:3.5rem">
+          <span class="sec-label">Lân Cận</span>
+          <h2 class="sec-title">Điểm Tham Quan Gần Lim</h2>
+          <div class="places-grid rv d1">
+            <div class="place-card"><div class="place-icon">🏯</div><div class="place-name">Chùa Dâu</div><span class="place-dist">~10 km · 20 phút</span><p class="place-desc">Ngôi chùa cổ nhất Việt Nam, xây dựng từ thế kỷ II sau Công Nguyên. Di tích lịch sử đặc biệt cấp quốc gia.</p></div>
+            <div class="place-card"><div class="place-icon">🏛️</div><div class="place-name">Đền Đô</div><span class="place-dist">~8 km · 15 phút</span><p class="place-desc">Đền thờ 8 vị vua triều Lý, nơi vua Lý Thái Tổ đọc Chiếu dời đô năm 1010. Kiến trúc cổ kính uy nghiêm.</p></div>
+            <div class="place-card"><div class="place-icon">🎨</div><div class="place-name">Làng Tranh Đông Hồ</div><span class="place-dist">~25 km · 40 phút</span><p class="place-desc">Làng nghề tranh dân gian nổi tiếng với những bức tranh Tết đặc trưng. Có thể tham quan xưởng và mua tranh gốc.</p></div>
+            <div class="place-card"><div class="place-icon">🌿</div><div class="place-name">Chùa Phật Tích</div><span class="place-dist">~12 km · 25 phút</span><p class="place-desc">Chùa cổ trên núi Phật Tích với pho tượng đá Phật nghìn năm tuổi độc đáo nhất miền Bắc Việt Nam.</p></div>
+          </div>
+        </div>
+
+        <div class="page-nav rv">
+          <a href="noi-dung.html" class="pn-link" data-link>
+            <span class="pn-label">← Trang trước</span>
+            <span class="pn-title">Nội Dung Lễ Hội</span>
+          </a>
+          <a href="am-thuc.html" class="pn-link right" data-link>
+            <span class="pn-label">Tiếp theo →</span>
+            <span class="pn-title">Ẩm Thực Bắc Ninh</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ASIDE -->
+      <div class="aside">
+        <div class="aside-box rv">
+          <h4>📅 Thời Gian</h4>
+          <div class="ar"><span class="l">Ngày 12</span><span class="v">Khai hội, hát đêm</span></div>
+          <div class="ar"><span class="l">Ngày 13</span><span class="v">Chính hội — quan trọng nhất</span></div>
+          <div class="ar"><span class="l">Ngày 14</span><span class="v">Bế hội, hội muộn</span></div>
+          <div class="ar"><span class="l">Thời tiết</span><span class="v">Xuân, 15–22°C</span></div>
+        </div>
+        <div class="aside-box rv d1">
+          <h4>💰 Chi Phí Ước Tính</h4>
+          <div class="ar"><span class="l">Vào cổng</span><span class="v">Miễn phí</span></div>
+          <div class="ar"><span class="l">Xe buýt HN–BN</span><span class="v">25.000–30.000đ</span></div>
+          <div class="ar"><span class="l">Ăn uống</span><span class="v">80.000–200.000đ</span></div>
+          <div class="ar"><span class="l">Đồ lưu niệm</span><span class="v">50.000–500.000đ</span></div>
+          <div class="ar"><span class="l">Tổng ước tính</span><span class="v">200.000–500.000đ</span></div>
+        </div>
+        <div class="aside-box rv d2">
+          <h4>✅ Checklist Mang Theo</h4>
+          <ul class="check-list">
+            <li>Trang phục thoải mái, kín đáo</li>
+            <li>Giày dép đi bộ bền</li>
+            <li>Áo khoác nhẹ (trời lạnh)</li>
+            <li>Tiền mặt (nhiều nơi không nhận thẻ)</li>
+            <li>Điện thoại đã sạc đầy</li>
+            <li>Sạc dự phòng</li>
+            <li>Nước uống & đồ ăn nhẹ</li>
+            <li>Khẩu trang (đông người)</li>
+          </ul>
+        </div>
+        <div class="cta-box rv d3">
+          <p>Lời khuyên từ người địa phương</p>
+          <h4>"Đến sớm, về muộn — đó là bí quyết để trải nghiệm Hội Lim trọn vẹn nhất."</h4>
+          <span class="tag">❖ Mẹo Du Lịch ❖</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">❖ Hội Lim ❖</div>
+  <p class="fc">Di sản văn hóa phi vật thể UNESCO 2009 · Bắc Ninh, Việt Nam</p>
+</footer>
+
+<script>
+function toggle(h){
+  const isOpen=h.classList.contains('open');
+  document.querySelectorAll('.tip-header').forEach(x=>{x.classList.remove('open');x.nextElementSibling.classList.remove('open')});
+  if(!isOpen){h.classList.add('open');h.nextElementSibling.classList.add('open')}
+}
+const pt=document.getElementById('pt');
+document.querySelectorAll('[data-link]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const h=a.getAttribute('href');if(!h||h.startsWith('#'))return;
+    e.preventDefault();pt.classList.add('out');
+    setTimeout(()=>location.href=h,520);
+  });
+});
+window.addEventListener('load',()=>{
+  pt.style.transition='none';pt.style.clipPath='inset(0% 0 0 0)';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    pt.style.transition='clip-path .55s cubic-bezier(.77,0,.18,1)';
+    pt.style.clipPath='inset(100% 0 0 0)';
+  }));
+});
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}
+}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

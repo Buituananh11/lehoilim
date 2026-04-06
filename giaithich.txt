@@ -1,0 +1,188 @@
+📄 PHẦN 1 — KHAI BÁO ĐẦU FILE
+<!DOCTYPE html>
+Dòng đầu tiên bắt buộc. Nói với trình duyệt: "Đây là file HTML phiên bản mới nhất (HTML5)". Không có dòng này trang web có thể hiển thị sai.
+<html lang="vi">
+Thẻ gốc bao toàn bộ trang. lang="vi" báo cho trình duyệt và Google biết trang viết bằng tiếng Việt — giúp SEO và đọc màn hình tốt hơn.
+<head>
+Phần "hậu trường" — chứa thông tin về trang nhưng không hiển thị trực tiếp cho người dùng thấy.
+<meta charset="UTF-8" />
+Khai báo bảng mã ký tự. UTF-8 hỗ trợ tiếng Việt có dấu (ă, ơ, ư...). Thiếu dòng này chữ Việt sẽ bị vỡ thành ký tự lạ.
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+Làm trang web responsive (hiển thị đúng trên điện thoại). width=device-width = chiều rộng bằng màn hình thiết bị. initial-scale=1.0 = không zoom khi mới mở.
+<title>Lễ Hội Lim – Bắc Ninh</title>
+Tiêu đề hiện trên tab trình duyệt và kết quả tìm kiếm Google.
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display..." />
+Tải font chữ đẹp từ Google Fonts qua internet. Dùng 3 font:
+Playfair Display — font serif sang trọng cho tiêu đề lớn
+Cormorant Garamond — font thanh lịch cho đoạn văn
+Noto Serif Vietnamese — font dự phòng hỗ trợ tiếng Việt tốt
+🎨 PHẦN 2 — CSS (Định dạng giao diện)
+CSS nằm trong thẻ <style>...</style>. Cú pháp cơ bản:
+selector { thuộc-tính: giá-trị; }
+/*  ↑ chọn phần tử nào    ↑ làm gì với nó */
+Reset mặc định
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+* = chọn tất cả mọi thứ trên trang. Mỗi trình duyệt có style mặc định khác nhau (Chrome khác Firefox). Dòng này xóa sạch để bắt đầu từ zero, tránh hiển thị lệch nhau.
+Biến màu sắc (CSS Variables)
+:root {
+  --crimson:    #8B1A1A;   /* đỏ thẫm */
+  --gold:       #C9923A;   /* vàng đồng */
+  --gold-light: #E8C06A;   /* vàng nhạt */
+  --ivory:      #FAF3E8;   /* trắng ngà */
+  --warm-dark:  #1C1108;   /* nâu đen */
+  --ink:        #2C1F0E;   /* nâu đậm */
+}
+:root = phạm vi toàn trang. Khai báo màu một lần, dùng lại khắp nơi bằng var(--tên-biến). Khi muốn đổi màu chỉ cần sửa 1 chỗ thay vì tìm kiếm cả file.
+Body — nền tảng trang
+body {
+  background: var(--ivory);      /* màu nền kem */
+  color: var(--ink);             /* màu chữ mặc định */
+  font-family: 'Cormorant Garamond', serif; /* font chữ mặc định */
+  overflow-x: hidden;            /* ẩn thanh cuộn ngang */
+}
+Navigation (thanh menu cố định)
+nav {
+  position: fixed;        /* cố định — không cuộn theo trang */
+  top: 0; left: 0; right: 0;  /* dán sát lên trên, trải full chiều ngang */
+  z-index: 100;           /* nằm trên tất cả phần tử khác */
+  background: rgba(28, 17, 8, 0.85);  /* nền nâu đen, 85% đục */
+  backdrop-filter: blur(12px);        /* làm mờ nội dung phía sau — kính mờ */
+}
+z-index như tầng của tòa nhà — số lớn hơn nằm trên. Nav có z-index: 100 nên luôn hiện phía trước mọi thứ.
+Hero Section — màn hình chào đầu tiên
+#hero {
+  min-height: 100vh;      /* chiều cao tối thiểu = 100% chiều cao màn hình */
+  background: var(--warm-dark);
+  display: grid;
+  place-items: center;    /* căn giữa nội dung theo cả chiều ngang lẫn dọc */
+  position: relative;     /* để các phần tử con dùng position: absolute */
+  overflow: hidden;       /* ẩn cánh hoa rơi nếu vượt ra ngoài */
+}
+100vh = 100% viewport height = toàn bộ chiều cao cửa sổ trình duyệt.
+Vòng tròn trang trí
+.circle-deco {
+  position: absolute;      /* thoát khỏi luồng bình thường, định vị tự do */
+  border-radius: 50%;      /* biến hình chữ nhật → hình tròn */
+  border: 1px solid rgba(201,146,58,0.18);  /* viền vàng mờ */
+  animation: pulseRing 6s ease-in-out infinite; /* chạy animation liên tục */
+}
+Keyframe Animation — cách tạo chuyển động
+@keyframes pulseRing {
+  0%, 100% { opacity: 0.3; transform: scale(1); }    /* đầu & cuối: nhỏ, mờ */
+  50%       { opacity: 0.7; transform: scale(1.03); } /* giữa: to hơn, rõ hơn */
+}
+@keyframes định nghĩa chuyển động từng bước. Trình duyệt tự tính toán các frame trung gian. Kết quả: vòng tròn phồng lên xẹp xuống nhịp nhàng như thở.
+Cánh hoa rơi
+@keyframes petalFall {
+  0%   { opacity: 0; transform: translateY(-60px) rotate(0deg); }
+  10%  { opacity: 0.6; }     /* hiện dần */
+  90%  { opacity: 0.4; }     /* bắt đầu mờ */
+  100% { opacity: 0; transform: translateY(110vh) rotate(720deg); } /* rơi xuống + xoay 2 vòng */
+}
+translateY = dịch chuyển theo trục dọc. rotate(720deg) = xoay 720° (2 vòng tròn) trong lúc rơi.
+Text Animation khi tải trang
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); } /* bắt đầu: ẩn, dịch xuống 30px */
+  to   { opacity: 1; transform: translateY(0); }    /* kết thúc: hiện, về đúng vị trí */
+}
+Các tiêu đề hero dùng animation này với animation-delay khác nhau tạo hiệu ứng xuất hiện lần lượt.
+Grid Layout — chia cột
+.s1-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* chia 2 cột bằng nhau */
+  gap: 6rem;                       /* khoảng cách giữa 2 cột */
+  align-items: center;             /* căn giữa dọc */
+}
+1fr = 1 phần (fraction). 1fr 1fr = chia đều 50/50. 3fr 1fr sẽ là 75/25.
+Card thống kê
+.stat-card {
+  background: var(--warm-dark);
+  padding: 1.6rem;              /* khoảng cách bên trong */
+  border-left: 3px solid var(--gold); /* viền vàng bên trái làm điểm nhấn */
+}
+Khung ảnh có viền lệch
+.s1-img-frame::before {
+  content: '';               /* bắt buộc phải có để ::before hiển thị */
+  position: absolute;
+  top: -12px; right: -12px; /* lệch ra ngoài 12px */
+  bottom: 12px; left: 12px;
+  border: 2px solid rgba(201,146,58,0.35); /* viền vàng mờ */
+}
+::before tạo một phần tử giả phía trước mà không cần thêm HTML. Dùng để tạo viền lệch trang trí.
+Section 2 — nền tối
+.activity-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);        /* ban đầu co lại = ẩn */
+  transition: transform 0.4s;  /* chuyển động mượt 0.4 giây */
+}
+.activity-card:hover::after {
+  transform: scaleX(1);        /* hover = mở ra full chiều ngang */
+}
+Hiệu ứng gạch chân vàng trượt ra khi hover. scaleX(0→1) = từ chiều rộng 0 → 100%.
+Gradient nền
+background: linear-gradient(135deg, var(--crimson), #6b1212);
+linear-gradient = màu chuyển dần. 135deg = góc chéo. Từ đỏ thẫm sang đỏ sẫm hơn.
+Responsive — thu nhỏ cho điện thoại
+@media (max-width: 900px) {
+  .s1-grid { grid-template-columns: 1fr; } /* đổi từ 2 cột → 1 cột */
+  .nav-links { display: none; }            /* ẩn menu */
+}
+@media = điều kiện. Khi màn hình nhỏ hơn 900px thì áp dụng CSS bên trong. Giúp trang hiển thị đúng trên điện thoại.
+Scroll Reveal — hiệu ứng xuất hiện khi cuộn
+.reveal {
+  opacity: 0;                    /* ban đầu ẩn */
+  transform: translateY(40px);   /* dịch xuống 40px */
+  transition: opacity 0.8s ease, transform 0.8s ease; /* chuyển động mượt 0.8s */
+}
+.reveal.visible {
+  opacity: 1;           /* hiện ra */
+  transform: translateY(0); /* về đúng vị trí */
+}
+JavaScript sẽ thêm class .visible khi phần tử cuộn vào màn hình, kích hoạt transition.
+⚡ PHẦN 3 — JAVASCRIPT
+Tạo cánh hoa rơi bằng code
+const hero = document.getElementById('hero'); // lấy thẻ có id="hero"
+const colors = ['#D4607A','#C9923A','#8B1A1A','#E8C06A']; // mảng 4 màu
+
+for (let i = 0; i < 18; i++) {          // lặp 18 lần → tạo 18 cánh hoa
+  const p = document.createElement('div'); // tạo thẻ <div> mới
+  p.className = 'petal';                   // gán class để CSS nhận diện
+
+  p.style.left = Math.random() * 100 + 'vw'; // vị trí ngang ngẫu nhiên 0–100vw
+  p.style.background = colors[Math.floor(Math.random() * colors.length)]; // màu ngẫu nhiên
+  p.style.animationDuration = (8 + Math.random() * 12) + 's'; // tốc độ rơi 8–20s ngẫu nhiên
+  p.style.animationDelay = (Math.random() * 10) + 's';         // chờ 0–10s trước khi bắt đầu
+
+  hero.appendChild(p); // thêm cánh hoa vào trong #hero
+}
+Math.random() trả về số từ 0 đến 1. Nhân với 100 → 0 đến 100. Mỗi lần tải trang cánh hoa rơi khác nhau.
+Scroll Reveal — phát hiện khi cuộn đến
+const reveals = document.querySelectorAll('.reveal'); // lấy tất cả phần tử có class .reveal
+
+const observer = new IntersectionObserver((entries) => {
+  // IntersectionObserver = theo dõi xem phần tử có xuất hiện trong màn hình không
+  entries.forEach(e => {
+    if (e.isIntersecting) {          // nếu phần tử đang nằm trong màn hình
+      e.target.classList.add('visible'); // thêm class .visible → CSS kích hoạt animation
+      observer.unobserve(e.target);      // ngừng theo dõi phần tử này (chỉ animate 1 lần)
+    }
+  });
+}, { threshold: 0.12 }); // kích hoạt khi 12% phần tử xuất hiện trong màn hình
+
+reveals.forEach(el => observer.observe(el)); // bắt đầu theo dõi từng phần tử
+Nav highlight — highlight menu khi cuộn
+window.addEventListener('scroll', () => { // lắng nghe sự kiện cuộn trang
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) // nếu đã cuộn đến section này
+      current = s.id;                         // lưu id section hiện tại
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current
+      ? 'var(--gold-light)'           // nếu link trỏ đúng section → màu vàng
+      : 'rgba(250,243,232,0.7)';      // còn lại → màu trắng mờ
+  });
+});
+window.scrollY = số pixel đã cuộn từ đầu trang. offsetTop = khoảng cách từ phần tử đến đầu trang.

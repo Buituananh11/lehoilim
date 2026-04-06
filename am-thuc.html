@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Ẩm Thực Bắc Ninh – Lễ Hội Lim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cr:#8B1A1A;--go:#C9923A;--gl:#E8C06A;--iv:#FAF3E8;--dk:#1C1108;--ink:#2C1F0E}
+html{scroll-behavior:smooth}
+body{background:var(--iv);color:var(--ink);font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+#pt{position:fixed;inset:0;z-index:9999;pointer-events:none;background:var(--dk);
+  clip-path:inset(100% 0 0 0);transition:clip-path .55s cubic-bezier(.77,0,.18,1)}
+#pt.out{pointer-events:all;clip-path:inset(0% 0 0 0)}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;
+  justify-content:space-between;padding:1.1rem 4rem;
+  background:rgba(28,17,8,.9);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,146,58,.2)}
+.nb{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+  letter-spacing:.14em;color:var(--gl);text-transform:uppercase;text-decoration:none}
+.nl{display:flex;gap:2rem;list-style:none}
+.nl a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(250,243,232,.5);text-decoration:none;transition:color .3s}
+.nl a:hover,.nl a.cur{color:var(--gl)}
+.rv{opacity:0;transform:translateY(32px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+.rv.d4{transition-delay:.48s}
+.wrap{max-width:1080px;margin:0 auto;padding:0 3rem}
+
+/* HERO */
+.page-hero{min-height:55vh;background:var(--dk);display:flex;align-items:flex-end;
+  padding-bottom:4rem;padding-top:100px;position:relative;overflow:hidden}
+.page-hero::before{content:'ẨM THỰC';position:absolute;
+  font-family:'Playfair Display',serif;font-size:clamp(4rem,13vw,12rem);
+  font-weight:900;color:rgba(201,146,58,.04);
+  top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none}
+.hero-line-dec{position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--go),var(--gl),var(--go),transparent)}
+.breadcrumb{display:flex;align-items:center;gap:.6rem;font-size:.65rem;
+  letter-spacing:.25em;text-transform:uppercase;color:rgba(250,243,232,.3);margin-bottom:1.2rem}
+.breadcrumb a{color:rgba(250,243,232,.3);text-decoration:none;transition:color .3s}
+.breadcrumb a:hover{color:var(--go)}.breadcrumb span{color:var(--go)}
+.page-title{font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--iv);line-height:1}
+.page-title em{color:var(--go);font-style:italic}
+.page-sub{font-size:1.1rem;font-weight:300;color:rgba(250,243,232,.45);
+  margin-top:.8rem;max-width:520px}
+
+/* INTRO */
+.intro-band{background:var(--dk);padding:3.5rem 0;margin-bottom:5rem}
+.intro-inner{max-width:1080px;margin:0 auto;padding:0 3rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.intro-text p{font-size:1.1rem;line-height:1.95;color:rgba(250,243,232,.6);
+  font-weight:300;margin-bottom:1rem}
+.intro-text p strong{color:var(--gl)}
+.intro-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(201,146,58,.15)}
+.istat{background:#160e04;padding:1.8rem;text-align:center}
+.istat .n{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--gl);font-weight:700;line-height:1}
+.istat .l{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(250,243,232,.4);margin-top:.3rem;display:block}
+
+/* FOOD GRID */
+.food-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin:3rem 0}
+.food-card{border:1px solid rgba(201,146,58,.15);overflow:hidden;
+  transition:transform .3s,box-shadow .3s}
+.food-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(139,26,26,.1)}
+.food-visual{height:180px;display:flex;align-items:center;justify-content:center;
+  font-size:5rem;position:relative;overflow:hidden}
+.food-visual::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(28,17,8,.4),transparent)}
+.fc1{background:linear-gradient(135deg,#3d1a08,#6b2e14)}
+.fc2{background:linear-gradient(135deg,#0d2a0a,#1a4a15)}
+.fc3{background:linear-gradient(135deg,#1a0808,#3d1212)}
+.fc4{background:linear-gradient(135deg,#1a1208,#3d2e08)}
+.fc5{background:linear-gradient(135deg,#08101a,#0d2035)}
+.fc6{background:linear-gradient(135deg,#1a0a14,#3d1530)}
+.food-info{padding:1.8rem}
+.food-name{font-family:'Playfair Display',serif;font-size:1.3rem;
+  color:var(--cr);font-weight:700;margin-bottom:.3rem}
+.food-region{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--go);margin-bottom:.8rem;display:block}
+.food-desc{font-size:.95rem;line-height:1.85;color:rgba(44,31,14,.68);font-weight:300;margin-bottom:1rem}
+.food-tip{display:flex;align-items:flex-start;gap:.6rem;
+  background:rgba(201,146,58,.06);padding:.9rem;border-left:2px solid var(--go)}
+.food-tip .ti{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--go);flex-shrink:0;padding-top:.1rem}
+.food-tip p{font-size:.85rem;color:rgba(44,31,14,.6);line-height:1.6}
+
+/* WHERE TO EAT */
+.eat-section{background:var(--dk);padding:4rem 0;margin-top:4rem}
+.eat-inner{max-width:1080px;margin:0 auto;padding:0 3rem}
+.eat-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--iv);
+  font-weight:800;margin-bottom:.5rem}
+.eat-sub{font-size:1rem;color:rgba(250,243,232,.45);margin-bottom:3rem}
+.eat-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,146,58,.1)}
+.eat-item{background:#110900;padding:2rem 1.8rem}
+.eat-item h4{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gl);
+  font-weight:700;margin-bottom:.5rem}
+.eat-item .tag{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--go);display:block;margin-bottom:.8rem}
+.eat-item p{font-size:.87rem;line-height:1.75;color:rgba(250,243,232,.5)}
+
+/* PAGE NAV */
+.page-nav{display:flex;justify-content:space-between;align-items:center;
+  padding:2.5rem 0;border-top:1px solid rgba(201,146,58,.2);margin-top:4rem}
+.pn-link{display:flex;flex-direction:column;text-decoration:none;transition:opacity .3s}
+.pn-link:hover{opacity:.75}
+.pn-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(201,146,58,.6);margin-bottom:.3rem}
+.pn-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--ink);font-weight:700}
+.pn-link.right{text-align:right}
+footer{background:#080401;padding:3rem;text-align:center;border-top:1px solid rgba(201,146,58,.15)}
+.fl{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--go);
+  font-weight:700;letter-spacing:.12em;margin-bottom:.4rem}
+.fc{font-size:.68rem;letter-spacing:.1em;color:rgba(250,243,232,.18);text-transform:uppercase}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}.nl{display:none}
+  .intro-inner,.food-grid{grid-template-columns:1fr}
+  .eat-list{grid-template-columns:1fr}
+  .intro-stats{grid-template-columns:1fr 1fr}
+  .wrap,.eat-inner,.intro-inner{padding:0 1.4rem}
+}
+</style>
+</head>
+<body>
+<div id="pt"></div>
+
+<nav>
+  <a href="index.html" class="nb" data-link>← Lễ Hội Lim</a>
+  <ul class="nl">
+    <li><a href="lich-su.html" data-link>Lịch Sử</a></li>
+    <li><a href="noi-dung.html" data-link>Nội Dung Hội</a></li>
+    <li><a href="du-lich.html" data-link>Du Lịch</a></li>
+    <li><a href="am-thuc.html" class="cur" data-link>Ẩm Thực</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb rv"><a href="index.html" data-link>Trang Chủ</a><span>›</span><span>Ẩm Thực Bắc Ninh</span></div>
+    <h1 class="page-title rv d1">Ẩm Thực<br><em>Bắc Ninh</em></h1>
+    <p class="page-sub rv d2">Hương vị đậm đà vùng Kinh Bắc — những món không thể bỏ qua</p>
+  </div>
+  <div class="hero-line-dec"></div>
+</div>
+
+<!-- INTRO BAND -->
+<div class="intro-band">
+  <div class="intro-inner">
+    <div class="intro-text rv">
+      <p>Ẩm thực Bắc Ninh mang đậm phong vị vùng đồng bằng Bắc Bộ — <strong>giản dị mà tinh tế</strong>, được chắt lọc từ nguyên liệu địa phương và bàn tay khéo léo của người dân Kinh Bắc qua nhiều thế kỷ.</p>
+      <p>Đến Hội Lim mà chưa thưởng thức bánh phu thê Đình Bảng hay chén bún ốc nóng hổi bên đường thì coi như chuyến đi chưa trọn vẹn. Ẩm thực là một phần không thể tách rời của văn hóa lễ hội.</p>
+    </div>
+    <div class="intro-stats rv d1">
+      <div class="istat"><div class="n">6+</div><span class="l">Đặc Sản Nổi Tiếng</span></div>
+      <div class="istat"><div class="n">100+</div><span class="l">Năm Công Thức Truyền Thống</span></div>
+      <div class="istat"><div class="n">Ngàn</div><span class="l">Hàng Ăn Dịp Hội</span></div>
+      <div class="istat"><div class="n">Miễn</div><span class="l">Phí Vào Khu Ẩm Thực</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOD CARDS -->
+<div style="padding:0 0 5rem">
+  <div class="wrap">
+    <div class="food-grid">
+      <div class="food-card rv">
+        <div class="food-visual fc1">🍡</div>
+        <div class="food-info">
+          <div class="food-name">Bánh Phu Thê (Xu Xê)</div>
+          <span class="food-region">Làng Đình Bảng · Đặc Sản Số 1</span>
+          <p class="food-desc">Bánh phu thê Đình Bảng là đặc sản nổi tiếng nhất Bắc Ninh, gắn liền với phong tục dâng lên tổ tiên trong ngày lễ. Vỏ bánh trong suốt làm từ bột lọc, nhân đậu xanh nghiền mịn trộn dừa sợi và đường — vừa dẻo vừa ngọt thanh.</p>
+          <div class="food-tip"><span class="ti">Mẹo</span><p>Mua tại Làng Đình Bảng để đảm bảo chất lượng gốc. Bánh tươi chỉ giữ được 1–2 ngày.</p></div>
+        </div>
+      </div>
+      <div class="food-card rv d1">
+        <div class="food-visual fc2">🐌</div>
+        <div class="food-info">
+          <div class="food-name">Bún Ốc Bắc Ninh</div>
+          <span class="food-region">Đặc Sản Địa Phương · Ăn Sáng</span>
+          <p class="food-desc">Khác với bún ốc Hà Nội, bún ốc Bắc Ninh có nước dùng thanh hơn, ít chua hơn, nhưng thơm mùi đặc trưng của ốc đồng tươi. Ăn kèm rau muống chẻ, bún tươi và ớt tươi thái lát.</p>
+          <div class="food-tip"><span class="ti">Mẹo</span><p>Ăn buổi sáng sớm mới ngon nhất. Tìm các quán có nồi ốc bốc khói là đúng hàng.</p></div>
+        </div>
+      </div>
+      <div class="food-card rv d2">
+        <div class="food-visual fc3">🥩</div>
+        <div class="food-info">
+          <div class="food-name">Nem Bắc Ninh</div>
+          <span class="food-region">Nem Thính Truyền Thống</span>
+          <p class="food-desc">Nem Bắc Ninh (nem thính) là loại nem chua độc đáo của vùng, được gói trong lá chuối tươi với thịt lợn thính gạo rang, tỏi, ớt — ủ trong 2–3 ngày cho lên men tự nhiên. Vị chua thanh, mặn vừa phải, ăn kèm gừng sống.</p>
+          <div class="food-tip"><span class="ti">Mẹo</span><p>Chọn nem còn trong lá xanh tươi, nắn thấy còn đàn hồi là nem ngon chưa quá chua.</p></div>
+        </div>
+      </div>
+      <div class="food-card rv d3">
+        <div class="food-visual fc4">🍚</div>
+        <div class="food-info">
+          <div class="food-name">Cơm Cháy Nước Cốt Dừa</div>
+          <span class="food-region">Món Ăn Vặt Dịp Hội</span>
+          <p class="food-desc">Cơm cháy giòn tan được chan nước cốt dừa béo ngậy, rắc thêm mè rang và đường — món ăn vặt giản dị nhưng đậm vị, thường xuất hiện nhiều tại các khu hàng ăn trong dịp Hội Lim và các lễ hội vùng Kinh Bắc.</p>
+          <div class="food-tip"><span class="ti">Mẹo</span><p>Ăn nóng mới giữ được độ giòn. Một đĩa chỉ khoảng 15.000–25.000đ.</p></div>
+        </div>
+      </div>
+      <div class="food-card rv d1">
+        <div class="food-visual fc5">🐟</div>
+        <div class="food-info">
+          <div class="food-name">Cá Kho Làng Vũ</div>
+          <span class="food-region">Làng Vũ Đại · Di Sản Ẩm Thực</span>
+          <p class="food-desc">Cá trắm đen kho trong nồi đất sét với nước hàng, riềng, mắm, đường — kho liu riu trên bếp than hàng 8–12 tiếng. Thịt cá tan mềm, vị mặn ngọt đậm đà, xương cũng ăn được. Thường ăn cùng cơm nóng.</p>
+          <div class="food-tip"><span class="ti">Mẹo</span><p>Mua nguyên nồi đất về làm quà — có thể để được 3–4 tuần ở nhiệt độ thường.</p></div>
+        </div>
+      </div>
+      <div class="food-card rv d2">
+        <div class="food-visual fc6">🍢</div>
+        <div class="food-info">
+          <div class="food-name">Tương Đình Tổ</div>
+          <span class="food-region">Làng Đình Tổ · Gia Vị Đặc Sản</span>
+          <p class="food-desc">Tương đậu nành truyền thống được làm theo công thức bí truyền của làng Đình Tổ từ hàng trăm năm nay. Màu vàng nâu, vị mặn ngọt đặc trưng, dùng để chấm bánh cuốn, đậu rán hay ăn cùng cơm nóng.</p>
+          <div class="food-tip"><span class="ti">Mẹo</span><p>Đây là loại gia vị phổ biến nhất Bắc Ninh, rất thích hợp mua về làm quà cho người thân.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav rv">
+      <a href="du-lich.html" class="pn-link" data-link>
+        <span class="pn-label">← Trang trước</span>
+        <span class="pn-title">Hướng Dẫn Du Lịch</span>
+      </a>
+      <a href="index.html" class="pn-link right" data-link>
+        <span class="pn-label">Quay về →</span>
+        <span class="pn-title">Trang Chủ</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- WHERE TO EAT -->
+<div class="eat-section">
+  <div class="eat-inner">
+    <h2 class="eat-title rv">🍽️ Ăn Ở Đâu Khi Đến Hội?</h2>
+    <p class="eat-sub rv d1">Gợi ý các khu vực ẩm thực trong và quanh Hội Lim</p>
+    <div class="eat-list rv d2">
+      <div class="eat-item">
+        <h4>Khu Ẩm Thực Trong Hội</h4>
+        <span class="tag">Ngay tại hội trường</span>
+        <p>Hàng trăm gian hàng ẩm thực trong khuôn viên lễ hội. Giá cao hơn bên ngoài nhưng tiện lợi và đông vui. Đặc biệt có bánh phu thê, nem Bắc Ninh, chè hoa cau.</p>
+      </div>
+      <div class="eat-item">
+        <h4>Chợ Lim & Đường Phố</h4>
+        <span class="tag">Cách hội ~200–500m</span>
+        <p>Giá bình dân hơn, nhiều lựa chọn hơn. Tìm các hàng bún ốc, bánh cuốn, bún chả dọc đường vào hội — ngon và rẻ hơn trong khu hội nhiều.</p>
+      </div>
+      <div class="eat-item">
+        <h4>Thị Trấn Lim & Phố Cổ</h4>
+        <span class="tag">Trung tâm thị trấn</span>
+        <p>Nhiều nhà hàng phục vụ cơm bình dân và đặc sản Bắc Ninh. Phù hợp cho nhóm đông muốn ăn ngồi thoải mái sau khi tham quan hội.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">❖ Hội Lim ❖</div>
+  <p class="fc">Di sản văn hóa phi vật thể UNESCO 2009 · Bắc Ninh, Việt Nam</p>
+</footer>
+
+<script>
+const pt=document.getElementById('pt');
+document.querySelectorAll('[data-link]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const h=a.getAttribute('href');if(!h||h.startsWith('#'))return;
+    e.preventDefault();pt.classList.add('out');
+    setTimeout(()=>location.href=h,520);
+  });
+});
+window.addEventListener('load',()=>{
+  pt.style.transition='none';pt.style.clipPath='inset(0% 0 0 0)';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    pt.style.transition='clip-path .55s cubic-bezier(.77,0,.18,1)';
+    pt.style.clipPath='inset(100% 0 0 0)';
+  }));
+});
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}
+}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
